@@ -12,7 +12,11 @@ import { Separator } from '@/components/ui/separator';
 import Image from 'next/image';
 import Link from 'next/link';
 import { LoginButtons } from './LoginButtons';
-export default function NavBar() {
+import { auth } from '@/auth';
+export default async function NavBar() {
+  const session = await auth();
+  console.log(session?.user);
+
   return (
     <nav className="sticky top-0 z-50  backdrop-blur-md shadow-sm">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
