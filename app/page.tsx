@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/card';
 import AnimatedSection from '@/lib/framer-motion';
 import { Bot, Video, Zap } from 'lucide-react';
+import Link from 'next/link';
 
 export default async function ShortsAILandingPage() {
   return (
@@ -33,9 +34,12 @@ export default async function ShortsAILandingPage() {
             required
           </p>
           <div className="flex justify-center space-x-4">
-            <Button size="lg" className="text-lg">
-              Start Creating Free
-            </Button>
+            <Link href="/dashboard">
+              {' '}
+              <Button size="lg" className="text-lg">
+                Start Creating Free
+              </Button>
+            </Link>
           </div>
         </main>
       </AnimatedSection>
