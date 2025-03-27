@@ -1,21 +1,23 @@
-import { ModeToggleButton } from '@/components/ModeToggleButton';
-import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-import { Separator } from '@/components/ui/separator';
-import Image from 'next/image';
-import Link from 'next/link';
-import { LoginButtons } from './LoginButtons';
 import { auth } from '@/auth';
+import { ModeToggleButton } from '@/components/ModeToggleButton';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Separator } from '@/components/ui/separator';
+import { Youtube } from 'lucide-react';
+import Link from 'next/link';
+import LoginSignup from './LoginSignup';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import SignOut from './Signout';
+import Image from 'next/image';
 export default async function NavBar() {
   const session = await auth();
-  console.log(session?.user);
 
   return (
     <nav className="sticky top-0 z-50  backdrop-blur-md shadow-sm">
@@ -24,7 +26,7 @@ export default async function NavBar() {
           <div className="flex items-center space-x-2">
             {/* <Youtube className="text-red-500" size={32} /> */}
             <Image
-              src={'/logo.png'}
+              src="/logo.png"
               alt="nav logo"
               width={50}
               height={50}
@@ -34,40 +36,36 @@ export default async function NavBar() {
           </div>
         </Link>
         <div className="space-x-4 flex justify-center items-center">
-          <Dialog>
-            <DialogTrigger asChild>
-              <div className="flex gap-2">
-                <Button variant="outline" className="cursor-pointer">
-                  Log In
-                </Button>
-                <Button className="hidden sm:block cursor-pointer">
-                  Sign Up
-                </Button>
-              </div>
-            </DialogTrigger>
+          {session && session.user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Avatar>
+                  <AvatarImage
+                    src={session.user.image!}
+                    alt={`${session.user.name} logo image`}
+                  />
+                  <AvatarFallback>
+                    {session.user.name?.substring(0, 1)}
+                  </AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuGroup>
+                  <DropdownMenuItem>Profile</DropdownMenuItem>
 
-            <DialogContent className="sm:grid sm:grid-cols-2 sm:grid-rows-3 lg:h-[550px] lg:w-[800px] sm:h-[450px] sm:w-[600px]  h-[450px] w-[300px] p-0 overflow-hidden  border-0 bg-secondary ">
-              <div>
-                <DialogHeader className="row-span-2 col-start-1 row-start-1 p-8 flex-1 text-center">
-                  <DialogTitle className=" text-xl sm:text-3xl font-semibold">
-                    Log in or sign up in seconds
-                  </DialogTitle>
-                  <DialogDescription className="">
-                    Use your email or another service to continue with deepshort
-                    (it’s free)!
-                  </DialogDescription>
-                </DialogHeader>
-                <LoginButtons />
-              </div>
-              <Image
-                src="/loginImage.png"
-                alt="login image"
-                className="row-span-3 col-start-2 row-start-1 scale-[1.01] sm:block hidden  "
-                layout="fill"
-                objectFit="cover"
-              />
-            </DialogContent>
-          </Dialog>
+                  <DropdownMenuItem>Dashboard</DropdownMenuItem>
+                  <SignOut>
+                    {' '}
+                    <DropdownMenuItem>Logout</DropdownMenuItem>
+                  </SignOut>
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <LoginSignup />
+          )}
 
           <Separator
             className="SeparatorRoot"

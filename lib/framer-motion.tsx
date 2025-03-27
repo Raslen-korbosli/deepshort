@@ -2,25 +2,28 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
-const sectionVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    y: 10,
-    transition: {
-      duration: 0.6,
-      ease: 'easeOut',
-    },
-  },
-};
-
-const ViewportAnimatedSection = ({
+const AnimatedSection = ({
   children,
   threshold,
+  delay = 0,
 }: {
   children: React.ReactNode;
   threshold: number;
+  delay?: number;
 }) => {
+  const sectionVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      y: 10,
+
+      transition: {
+        duration: 0.6,
+        ease: 'easeOut',
+        delay: delay === 0 ? 0 : delay,
+      },
+    },
+  };
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: threshold });
 
@@ -37,4 +40,4 @@ const ViewportAnimatedSection = ({
   );
 };
 
-export default ViewportAnimatedSection;
+export default AnimatedSection;

@@ -1,8 +1,8 @@
 'use client';
 
 import { ConvexProviderWithAuth, ConvexReactClient } from 'convex/react';
-import { SessionProvider, useSession } from 'next-auth/react';
 import { Session } from 'next-auth';
+import { SessionProvider, useSession } from 'next-auth/react';
 import { ReactNode, useMemo } from 'react';
 
 const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
@@ -12,9 +12,8 @@ export default function ConvexClientProvider({
 }: {
   children: ReactNode;
 }) {
-  const { data: session } = useSession();
   return (
-    <SessionProvider session={session}>
+    <SessionProvider>
       <ConvexProviderWithAuth client={convex} useAuth={useAuth}>
         {children}
       </ConvexProviderWithAuth>

@@ -15,6 +15,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   secret: process.env.AUTH_SECRET,
   adapter: ConvexAdapter,
+  session: { strategy: 'jwt' },
   callbacks: {
     async session({ session }) {
       const privateKey = await importPKCS8(

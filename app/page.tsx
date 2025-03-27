@@ -101,7 +101,7 @@ export default async function ShortsAILandingPage() {
       </AnimatedSection>
 
       {/* pricing section */}
-      <AnimatedSection threshold={0.3}>
+      <AnimatedSection threshold={0.2}>
         {' '}
         <PricingSection />
       </AnimatedSection>
