@@ -10,7 +10,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Separator } from '@/components/ui/separator';
-import { Youtube } from 'lucide-react';
 import Link from 'next/link';
 import LoginSignup from './LoginSignup';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
