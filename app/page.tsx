@@ -1,6 +1,5 @@
 import ExploreSection from '@/components/ExploreSection';
 import { Footer } from '@/components/Footer';
-import NavBar from '@/components/NavBar';
 import PricingSection from '@/components/PricingSection';
 import { Button } from '@/components/ui/button';
 import {
@@ -16,10 +15,8 @@ import Link from 'next/link';
 export default async function ShortsAILandingPage() {
   return (
     <div className="min-h-screen  ">
-      {/* Navigation */}
-      <NavBar />
       <AnimatedSection threshold={0.1}>
-        <main className="container mx-auto px-4 py-2 sm:py-16 text-center">
+        <main className="container mx-auto px-4 py-28 sm:py-36 text-center">
           <div className="mt-12 mx-auto max-w-4xl">
             <div className="inline-block bg-indigo-100 text-indigo-600 font-semibold px-4 py-2 rounded-full text-sm mb-4">
               🚀 AI-Powered Content Creation

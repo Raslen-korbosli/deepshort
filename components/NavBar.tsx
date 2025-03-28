@@ -1,4 +1,5 @@
-import { auth } from '@/auth';
+'use client';
+import { useMediaQuery } from '@/app/hooks/useMediaQuery';
 import { ModeToggleButton } from '@/components/ModeToggleButton';
 import {
   DropdownMenu,
@@ -10,20 +11,20 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Separator } from '@/components/ui/separator';
+import { User } from '@prisma/client';
+import Image from 'next/image';
 import Link from 'next/link';
 import LoginSignup from './LoginSignup';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import MobileNavBar from './MobileNavBar';
 import SignOut from './Signout';
-import Image from 'next/image';
-export default async function NavBar() {
-  const session = await auth();
-
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+export default function NavBar({ user }: { user?: User }) {
+  const isMobile = useMediaQuery('(max-width: 768px)');
   return (
-    <nav className="sticky top-0 z-50  backdrop-blur-md shadow-sm">
+    <nav className="fixed w-full top-0 z-50  backdrop-blur-md shadow-sm">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <Link href="#home" scroll={true}>
+        <Link href="/" scroll={true}>
           <div className="flex items-center space-x-2">
-            {/* <Youtube className="text-red-500" size={32} /> */}
             <Image
               src="/logo.png"
               alt="nav logo"
@@ -34,45 +35,66 @@ export default async function NavBar() {
             <span className="text-xl font-bold  ">DeepShort</span>
           </div>
         </Link>
-        <div className="space-x-4 flex justify-center items-center">
-          {session && session.user ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Avatar>
-                  <AvatarImage
-                    src={session.user.image!}
-                    alt={`${session.user.name} logo image`}
-                  />
-                  <AvatarFallback>
-                    {session.user.name?.substring(0, 1)}
-                  </AvatarFallback>
-                </Avatar>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuGroup>
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
 
-                  <DropdownMenuItem>Dashboard</DropdownMenuItem>
-                  <SignOut>
-                    {' '}
-                    <DropdownMenuItem>Logout</DropdownMenuItem>
-                  </SignOut>
-                </DropdownMenuGroup>
-              </DropdownMenuContent>
-            </DropdownMenu>
+        {isMobile ? (
+          user ? (
+            <MobileNavBar
+              userName={user?.name || ''}
+              userImage={user?.image || ''}
+            />
           ) : (
-            <LoginSignup />
-          )}
+            <div className="flex gap-4">
+              {' '}
+              <LoginSignup />
+              <Separator
+                className="SeparatorRoot"
+                orientation="vertical"
+                style={{ height: '30px' }}
+              />{' '}
+              <ModeToggleButton />
+            </div>
+          )
+        ) : (
+          <div className="sm:flex hidden space-x-4  justify-center items-center">
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Avatar>
+                    <AvatarImage
+                      src={user.image!}
+                      alt={`${user.name} logo image`}
+                    />
+                    <AvatarFallback>
+                      {user.name?.substring(0, 1)}
+                    </AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem>Profile</DropdownMenuItem>
 
-          <Separator
-            className="SeparatorRoot"
-            orientation="vertical"
-            style={{ height: '30px' }}
-          />
-          <ModeToggleButton />
-        </div>
+                    <DropdownMenuItem>Dashboard</DropdownMenuItem>
+                    <SignOut>
+                      {' '}
+                      <DropdownMenuItem>Logout</DropdownMenuItem>
+                    </SignOut>
+                  </DropdownMenuGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <LoginSignup />
+            )}
+
+            <Separator
+              className="SeparatorRoot"
+              orientation="vertical"
+              style={{ height: '30px' }}
+            />
+            <ModeToggleButton />
+          </div>
+        )}
       </div>
     </nav>
   );

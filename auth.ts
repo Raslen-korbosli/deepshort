@@ -1,12 +1,12 @@
 import NextAuth from 'next-auth';
 import Google from 'next-auth/providers/google';
-import { ConvexAdapter } from './convex/ConvexAdapter';
-import { SignJWT, importPKCS8 } from 'jose';
-const CONVEX_SITE_URL = process.env.NEXT_PUBLIC_CONVEX_URL!.replace(
-  /.cloud$/,
-  '.site'
-);
+import { PrismaAdapter } from '@auth/prisma-adapter';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  adapter: PrismaAdapter(prisma),
   providers: [
     Google({
       clientId: process.env.AUTH_GOOGLE_ID,
@@ -14,29 +14,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   secret: process.env.AUTH_SECRET,
-  adapter: ConvexAdapter,
   session: { strategy: 'jwt' },
-  callbacks: {
-    async session({ session }) {
-      const privateKey = await importPKCS8(
-        process.env.CONVEX_AUTH_PRIVATE_KEY!,
-        'RS256'
-      );
-      const convexToken = await new SignJWT({
-        sub: session.userId,
-      })
-        .setProtectedHeader({ alg: 'RS256' })
-        .setIssuedAt()
-        .setIssuer(CONVEX_SITE_URL)
-        .setAudience('convex')
-        .setExpirationTime('1h')
-        .sign(privateKey);
-      return { ...session, convexToken };
-    },
-  },
 });
-declare module 'next-auth' {
-  interface Session {
-    convexToken: string;
-  }
-}

@@ -1,16 +1,12 @@
-import { signOut } from '@/auth';
+import { signOut } from 'next-auth/react';
 
 export default function SignOut({ children }: { children: React.ReactNode }) {
+  function handleSignOut() {
+    signOut({ redirectTo: '/' });
+  }
   return (
-    <form
-      action={async () => {
-        'use server';
-        await signOut();
-      }}
-    >
-      <button className="w-full" type="submit">
-        {children}
-      </button>
-    </form>
+    <button className="w-full" onClick={handleSignOut}>
+      {children}
+    </button>
   );
 }
