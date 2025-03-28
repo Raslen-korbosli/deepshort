@@ -98,13 +98,14 @@ export default function MobileNavBar({
                   {userName?.substring(0, 1) || ''}
                 </AvatarFallback>
               </Avatar>
-              <p className=" items-center rounded-md px-3 py-2 text-sm font-medium transition-colors">
+              <p className=" items-center flex justify-between w-full rounded-md px-3 py-2 text-sm font-medium transition-colors">
                 {' '}
                 {userName}
+                <span>Credits : 3</span>
               </p>
             </div>
 
-            <nav className="flex flex-col gap-1">
+            <nav className="flex flex-col gap-1 py-4">
               {navItems.map((item) => (
                 <a
                   key={item.title}

@@ -13,7 +13,7 @@ export function LoginButtons() {
       <Button
         variant="outline"
         className={
-          'cursor-pointer active:bg-red-300 w-full flex items-center justify-start gap-2 text-primary bg-background  hover:bg-gray-50 border  py-5 px-8 rounded-md'
+          'cursor-pointer active:bg-gray-100 w-full flex items-center justify-start gap-2 text-primary bg-background  hover:bg-gray-50 border  py-5 px-8 rounded-md'
         }
         onClick={() => signInClick('google')}
       >
@@ -23,7 +23,7 @@ export function LoginButtons() {
       <Button
         variant="outline"
         className={
-          'w-full flex items-center justify-start gap-2 text-primary bg-background  hover:bg-gray-50 border  py-5 px-8 rounded-md'
+          'w-full flex items-center  active:bg-gray-100 justify-start gap-2 text-primary bg-background  hover:bg-gray-50 border  py-5 px-8 rounded-md'
         }
       >
         <FacebookIcon />
@@ -32,7 +32,7 @@ export function LoginButtons() {
       <Button
         variant="outline"
         className={
-          'w-full flex items-center justify-start gap-2 text-primary bg-background   hover:bg-gray-50 border  py-5 px-8 rounded-md'
+          'w-full flex items-center  active:bg-gray-100 justify-start gap-2 text-primary bg-background   hover:bg-gray-50 border  py-5 px-8 rounded-md'
         }
       >
         <Mail />
