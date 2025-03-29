@@ -1,5 +1,5 @@
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogTrigger } from '@/components/ui/dialog';
+import { Button } from '@/(components)/ui/button';
+import { Dialog, DialogTrigger } from '@/(components)/ui/dialog';
 import LoginPopOut from './LoginPopOut';
 export default function LoginSignup() {
   return (

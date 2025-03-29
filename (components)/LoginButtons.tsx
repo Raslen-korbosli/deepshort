@@ -1,5 +1,5 @@
 'use client';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/(components)/ui/button';
 import { Mail } from 'lucide-react';
 import { signIn } from 'next-auth/react';
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes';

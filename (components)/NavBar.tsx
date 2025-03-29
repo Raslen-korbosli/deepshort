@@ -1,7 +1,7 @@
 'use client';
 
 import { useMediaQuery } from '@/app/hooks/useMediaQuery';
-import { ModeToggleButton } from '@/components/ModeToggleButton';
+import { ModeToggleButton } from '@/(components)/ModeToggleButton';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,13 +10,14 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Separator } from '@/components/ui/separator';
+} from '@/(components)/ui/dropdown-menu';
+import { Separator } from '@/(components)/ui/separator';
 import { User } from '@prisma/client';
+import { ChevronsUpDown } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import LoginSignup from './LoginSignup';
-import MobileNavBar from './MobileNavBar';
+import ProfileDropMenu from './ProfileDropMenu';
 import SignOut from './Signout';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Button } from './ui/button';
@@ -49,11 +50,25 @@ const DesktopUserMenu = ({ user }: { user: User }) => (
   </div>
 );
 
-// Separate component for right-side actions
 const NavActions = ({ user, isMobile }: { user?: User; isMobile: boolean }) => {
   if (isMobile) {
     return user ? (
-      <MobileNavBar userName={user?.name || ''} userImage={user?.image || ''} />
+      <ProfileDropMenu isMobile={isMobile} user={user}>
+        <Button
+          size="lg"
+          className="bg-primary-foreground w-42 text-primary hover:text-primary-foreground "
+        >
+          <Avatar className="h-8 w-8 rounded-lg">
+            <AvatarImage src={user.image!} alt={user.name!} />
+            <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+          </Avatar>
+          <div className="grid flex-1 text-left text-sm leading-tight">
+            <span className="truncate font-semibold">{user.name}</span>
+            <span className="truncate text-xs">{user.email}</span>
+          </div>
+          <ChevronsUpDown className="ml-auto size-4" />
+        </Button>
+      </ProfileDropMenu>
     ) : (
       <div className="flex gap-4">
         <LoginSignup />

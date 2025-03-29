@@ -1,21 +1,21 @@
 import { auth } from '@/auth';
-import ExploreSection from '@/components/ExploreSection';
-import { Footer } from '@/components/Footer';
-import PricingSection from '@/components/PricingSection';
-import { Button } from '@/components/ui/button';
+import ExploreSection from '@/(components)/ExploreSection';
+import { Footer } from '@/(components)/Footer';
+import PricingSection from '@/(components)/PricingSection';
+import { Button } from '@/(components)/ui/button';
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import LoginPopOut from '@/components/LoginPopOut';
+} from '@/(components)/ui/card';
+import LoginPopOut from '@/(components)/LoginPopOut';
 
-import { Dialog, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogTrigger } from '@/(components)/ui/dialog';
 import AnimatedSection from '@/lib/framer-motion';
 import { Bot, Video, Zap } from 'lucide-react';
 import Link from 'next/link';
-import NavBar from '@/components/NavBar';
+import NavBar from '@/(components)/NavBar';
 import { User } from '@prisma/client';
 
 export default async function ShortsAILandingPage() {
