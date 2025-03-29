@@ -36,7 +36,7 @@ const navItems: NavItem[] = [
   },
   {
     title: 'Dashboard',
-    href: '/dashboard',
+    href: '/dashboard/create',
     icon: Grid2X2,
   },
   {

@@ -19,27 +19,34 @@ import LoginSignup from './LoginSignup';
 import MobileNavBar from './MobileNavBar';
 import SignOut from './Signout';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import { Button } from './ui/button';
 
 const DesktopUserMenu = ({ user }: { user: User }) => (
-  <DropdownMenu>
-    <DropdownMenuTrigger asChild>
-      <Avatar>
-        <AvatarImage src={user.image!} alt={`${user.name} logo image`} />
-        <AvatarFallback>{user.name?.substring(0, 1)}</AvatarFallback>
-      </Avatar>
-    </DropdownMenuTrigger>
-    <DropdownMenuContent>
-      <DropdownMenuLabel>My Account</DropdownMenuLabel>
-      <DropdownMenuSeparator />
-      <DropdownMenuGroup>
-        <DropdownMenuItem>Profile</DropdownMenuItem>
-        <DropdownMenuItem>Dashboard</DropdownMenuItem>
-        <SignOut>
-          <DropdownMenuItem>Logout</DropdownMenuItem>
-        </SignOut>
-      </DropdownMenuGroup>
-    </DropdownMenuContent>
-  </DropdownMenu>
+  <div className="flex gap-4 justify-center items-center">
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Avatar className="shadow-sm border-2 size-10 cursor-pointer">
+          <AvatarImage src={user.image!} alt={`${user.name} logo image`} />
+          <AvatarFallback>{user.name?.substring(0, 1)}</AvatarFallback>
+        </Avatar>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+          <DropdownMenuItem>Profile</DropdownMenuItem>
+          <DropdownMenuItem>Dashboard</DropdownMenuItem>
+          <SignOut>
+            <DropdownMenuItem>Logout</DropdownMenuItem>
+          </SignOut>
+        </DropdownMenuGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
+    <Link href="/dashboard/create">
+      {' '}
+      <Button className="cursor-pointer"> dashboard</Button>
+    </Link>
+  </div>
 );
 
 // Separate component for right-side actions
@@ -77,9 +84,12 @@ export default function NavBar({ user }: { user?: User }) {
   const isMobile = useMediaQuery('(max-width: 768px)');
 
   return (
-    <nav className="fixed w-full top-0 z-50 backdrop-blur-md shadow-sm">
+    <nav
+      className="sticky w-full top-0 z-50 backdrop-blur-md shadow-sm "
+      id="home"
+    >
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <Link href="/" scroll={true}>
+        <Link href="#home">
           <div className="flex items-center space-x-2">
             <Image
               src="/logo.png"
@@ -88,6 +98,7 @@ export default function NavBar({ user }: { user?: User }) {
               height={50}
               className="mr-0"
             />
+
             <span className="text-xl font-bold">DeepShort</span>
           </div>
         </Link>

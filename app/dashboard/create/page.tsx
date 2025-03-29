@@ -1,5 +1,7 @@
 import { auth } from '@/auth';
-
+export const metadata = {
+  title: 'Dashboard',
+};
 export default async function page() {
   const session = await auth();
 

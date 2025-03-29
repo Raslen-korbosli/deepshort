@@ -1,3 +1,4 @@
+import { auth } from '@/auth';
 import ExploreSection from '@/components/ExploreSection';
 import { Footer } from '@/components/Footer';
 import PricingSection from '@/components/PricingSection';
@@ -8,15 +9,24 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import LoginPopOut from '@/components/LoginPopOut';
+
+import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import AnimatedSection from '@/lib/framer-motion';
 import { Bot, Video, Zap } from 'lucide-react';
 import Link from 'next/link';
+import NavBar from '@/components/NavBar';
+import { User } from '@prisma/client';
 
 export default async function ShortsAILandingPage() {
+  const session = await auth();
+  const user = session?.user as User;
   return (
     <div className="min-h-screen  ">
+      {/* Navigation */}
+      <NavBar user={user} />
       <AnimatedSection threshold={0.1}>
-        <main className="container mx-auto px-4 py-28 sm:py-36 text-center">
+        <main className="container mx-auto px-4 py-12  text-center">
           <div className="mt-12 mx-auto max-w-4xl">
             <div className="inline-block bg-indigo-100 text-indigo-600 font-semibold px-4 py-2 rounded-full text-sm mb-4">
               🚀 AI-Powered Content Creation
@@ -30,14 +40,27 @@ export default async function ShortsAILandingPage() {
             Generate engaging, professional videos in minutes, no editing skills
             required
           </p>
-          <div className="flex justify-center space-x-4">
-            <Link href="/dashboard">
+          {!session ? (
+            <Dialog>
+              <DialogTrigger asChild>
+                <div className="flex justify-center space-x-4">
+                  {' '}
+                  <Button size="lg" className="text-lg active:bg-primary/80">
+                    Start Creating Free
+                  </Button>
+                </div>
+              </DialogTrigger>
+
+              <LoginPopOut />
+            </Dialog>
+          ) : (
+            <Link href="/dashboard/create">
               {' '}
-              <Button size="lg" className="text-lg">
+              <Button size="lg" className="text-lg active:bg-primary/80">
                 Start Creating Free
               </Button>
             </Link>
-          </div>
+          )}
         </main>
       </AnimatedSection>
       {/* Features Section */}
