@@ -1,5 +1,5 @@
 import { AppSidebar } from '@/(components)/AppSidebar';
-import { SidebarProvider } from '@/(components)/ui/sidebar';
+import { SidebarInset, SidebarProvider } from '@/(components)/ui/sidebar';
 import type { Metadata } from 'next';
 import DashboardNavbar from './(dashboardComponents)/DashboardNavbar';
 
@@ -15,11 +15,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main>
+      <SidebarInset>
         <DashboardNavbar />
 
         {children}
-      </main>
+      </SidebarInset>
     </SidebarProvider>
   );
 }

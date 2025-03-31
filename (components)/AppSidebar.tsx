@@ -1,5 +1,5 @@
 'use client';
-import { Home, Pen, Settings, Upload } from 'lucide-react';
+import { CreditCard, Home, Pen, Settings, Upload } from 'lucide-react';
 import * as React from 'react';
 import {
   Sidebar,
@@ -38,6 +38,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         title: 'Upload',
         url: '/dashboard/upload',
         icon: Upload,
+        isActive: true,
+      },
+      {
+        title: 'Billing',
+        url: '/dashboard/billing',
+        icon: CreditCard,
         isActive: true,
       },
       {

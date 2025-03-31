@@ -53,22 +53,22 @@ const DesktopUserMenu = ({ user }: { user: User }) => (
 const NavActions = ({ user, isMobile }: { user?: User; isMobile: boolean }) => {
   if (isMobile) {
     return user ? (
-      <ProfileDropMenu isMobile={isMobile} user={user}>
-        <Button
-          size="lg"
-          className="bg-primary-foreground w-42 text-primary hover:text-primary-foreground "
-        >
-          <Avatar className="h-8 w-8 rounded-lg">
-            <AvatarImage src={user.image!} alt={user.name!} />
-            <AvatarFallback className="rounded-lg">CN</AvatarFallback>
-          </Avatar>
-          <div className="grid flex-1 text-left text-sm leading-tight">
-            <span className="truncate font-semibold">{user.name}</span>
-            <span className="truncate text-xs">{user.email}</span>
-          </div>
-          <ChevronsUpDown className="ml-auto size-4" />
-        </Button>
-      </ProfileDropMenu>
+      <div className="flex items-center justify-center gap-2">
+        <ProfileDropMenu isMobile={isMobile} user={user}>
+          <Button
+            size="lg"
+            className="bg-primary-foreground  text-primary hover:text-primary-foreground "
+          >
+            <Avatar className="h-8 w-8 rounded-lg">
+              <AvatarImage src={user.image!} alt={user.name!} />
+              <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+            </Avatar>
+
+            <ChevronsUpDown className="ml-auto size-4" />
+          </Button>
+        </ProfileDropMenu>
+        <ModeToggleButton />
+      </div>
     ) : (
       <div className="flex gap-4">
         <LoginSignup />

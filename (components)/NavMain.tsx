@@ -30,13 +30,19 @@ export function NavMain({
       <SidebarGroupLabel>Menu</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
-          <SidebarMenuItem key={item.title}>
-            <Link href={item.url}>
-              <SidebarMenuButton tooltip={item.title}>
-                {item.icon && <item.icon />}
+          <SidebarMenuItem key={item.title} className="px-2 py-1">
+            <SidebarMenuButton
+              tooltip={item.title}
+              className="text-sm h-full  "
+            >
+              <Link
+                href={item.url}
+                className="p-2 w-full  flex items-center gap-2"
+              >
+                {item.icon && <item.icon className="size-5" />}
                 <span>{item.title}</span>
-              </SidebarMenuButton>
-            </Link>
+              </Link>
+            </SidebarMenuButton>
           </SidebarMenuItem>
         ))}
       </SidebarMenu>
