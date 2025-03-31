@@ -8,6 +8,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from '@/(components)/ui/sidebar';
 import Link from 'next/link';
 
@@ -25,24 +26,27 @@ export function NavMain({
     }[];
   }[];
 }) {
+  const { toggleSidebar, isMobile } = useSidebar();
+
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Menu</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
-          <SidebarMenuItem key={item.title} className="px-2 py-1">
-            <SidebarMenuButton
-              tooltip={item.title}
-              className="text-sm h-full  "
-            >
-              <Link
-                href={item.url}
-                className="p-2 w-full  flex items-center gap-2"
+          <SidebarMenuItem
+            key={item.title}
+            className="py-1"
+            onClick={() => isMobile && toggleSidebar()}
+          >
+            <Link href={item.url} className="">
+              <SidebarMenuButton
+                tooltip={item.title}
+                className="text-lg h-full "
               >
-                {item.icon && <item.icon className="size-5" />}
+                {item.icon && <item.icon className="" />}
                 <span>{item.title}</span>
-              </Link>
-            </SidebarMenuButton>
+              </SidebarMenuButton>
+            </Link>
           </SidebarMenuItem>
         ))}
       </SidebarMenu>

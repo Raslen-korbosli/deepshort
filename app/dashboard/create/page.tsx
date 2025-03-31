@@ -4,6 +4,7 @@ export const metadata = {
 };
 export default async function page() {
   const session = await auth();
+  console.log(session);
 
   return (
     <div className="py-36 px-8 h-full">
